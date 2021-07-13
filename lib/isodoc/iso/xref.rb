@@ -8,7 +8,7 @@ module IsoDoc
         if @klass.amd(doc)
           initial_anchor_names_amd(doc)
         else
-          super
+          initial_anchor_names1(doc)
         end
         introduction_names(doc.at(ns("//introduction")))
       end
@@ -20,6 +20,22 @@ module IsoDoc
         sequential_asset_names(doc.xpath(ns("//preface/*")))
         doc.xpath(ns("//sections/clause")).each do |c|
           c.element? and preface_names(c)
+        end
+        middle_section_asset_names(doc)
+        termnote_anchor_names(doc)
+        termexample_anchor_names(doc)
+      end
+
+      def initial_anchor_names1(doc)
+        doc.xpath(ns("//preface/*")).each { |c| c.element? and preface_names(c) }
+        # potentially overridden in middle_section_asset_names()
+        sequential_asset_names(doc.xpath(ns("//preface/*")))
+        n = Counter.new
+        n = section_names(doc.at(ns("//clause[@type = 'scope']")), n, 1)
+        n = section_names(doc.at(ns(@klass.norm_ref_xpath)), n, 1)
+        doc.xpath(ns("//sections/clause[not(@type = 'scope')] | "\
+                     "//sections/terms | //sections/definitions")).each do |c|
+          n = section_names(c, n, 1)
         end
         middle_section_asset_names(doc)
         termnote_anchor_names(doc)

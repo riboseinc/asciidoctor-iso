@@ -33,6 +33,9 @@ module Asciidoctor
       def sectiontype(node, level = true)
         return nil if @amd
 
+        ret = sectiontype_streamline(sectiontype1(node))
+        return ret if ret == "terms and definitions" && @vocab
+
         super
       end
     end

@@ -1692,20 +1692,6 @@ RSpec.describe Asciidoctor::ISO do
       .not_to include "exceeds the maximum clause depth of 7"
   end
 
-  it "Warn if term citation in Terms & Definitions not preceded with italicised term" do
-    Asciidoctor.convert(<<~"INPUT", *OPTIONS)
-      #{VALIDATING_BLANK_HDR}
-      == Terms and Definitions
-
-      [[term]]
-      === Term
-
-      The definition of a term (<<term>>) is a part of the specialized vocabulary of a particular field
-    INPUT
-    expect(File.read("test.err"))
-      .to include "term citation not preceded with italicised term"
-  end
-
   it "Warn if an undated reference has no associated footnote" do
     Asciidoctor.convert(<<~"INPUT", *OPTIONS)
       #{VALIDATING_BLANK_HDR}

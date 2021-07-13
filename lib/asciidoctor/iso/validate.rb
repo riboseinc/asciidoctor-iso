@@ -85,18 +85,6 @@ module Asciidoctor
           termdef_warn(para.text, /\.\Z/i, t, term,
                        "term definition ends with period")
         end
-        cited_term_style(xmldoc)
-      end
-
-      # ISO/IEC DIR 2, 16.5.10
-      def cited_term_style(xmldoc)
-        xmldoc.xpath("//term//xref").each do |x|
-          next unless xmldoc.at("//term[@id = '#{x['target']}']")
-
-          x&.previous&.text == " (" and x&.previous&.previous&.name == "em" or
-            style_warning(x, "term citation not preceded with italicised term",
-                          x.parent.text)
-        end
       end
 
       def doctype_validate(xmldoc)

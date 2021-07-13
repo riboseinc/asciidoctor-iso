@@ -112,9 +112,9 @@ module IsoDoc
 
       def formula_where(dlist, out)
         return if dlist.nil?
-        return super unless (dlist&.xpath(ns("./dt"))&.size == 1 && 
-                             dlist&.at(ns("./dd"))&.elements&.size == 1 &&
-                             dlist&.at(ns("./dd/p")))
+        return super unless dlist&.xpath(ns("./dt"))&.size == 1 &&
+          dlist&.at(ns("./dd"))&.elements&.size == 1 &&
+          dlist&.at(ns("./dd/p"))
 
         out.span **{ class: "zzMoveToFollowing" } do |s|
           s << "#{@i18n.where} "
@@ -128,8 +128,11 @@ module IsoDoc
         type = node["type"]
         name = admonition_name(node, type)
         out.div **{ id: node["id"], class: admonition_class(node) } do |div|
-          node.first_element_child.name == "p" ?
-            admonition_p_parse(node, div, name) : admonition_parse1(node, div, name)
+          if node.first_element_child.name == "p"
+            admonition_p_parse(node, div, name)
+          else
+            admonition_parse1(node, div, name)
+          end
         end
       end
 
@@ -160,8 +163,30 @@ module IsoDoc
       end
 
       def middle(isoxml, out)
-        super
+        middle_title(isoxml, out)
+        middle_admonitions(isoxml, out)
+        i = scope isoxml, out, 0
+        i = norm_ref isoxml, out, i
+        # i = terms_defs isoxml, out, i
+        # symbols_abbrevs isoxml, out, i
+        clause_etc isoxml, out, i
+        annex isoxml, out
+        bibliography isoxml, out
         indexsect isoxml, out
+      end
+
+      def clause_etc(isoxml, out, num)
+        isoxml.xpath(ns("//sections/clause[not(@type = 'scope')] | "\
+                        "//sections/terms | //sections/definitions")).each do |f|
+          out.div **attr_code(id: f["id"],
+                              class: f.name == "definitions" ? "Symbols" : nil) do |div|
+            num = num + 1
+            clause_name(num, f&.at(ns("./title")), div, nil)
+            f.elements.each do |e|
+              parse(e, div) unless %w{title source}.include? e.name
+            end
+          end
+        end
       end
 
       def indexsect(isoxml, out)

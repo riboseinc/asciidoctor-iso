@@ -86,86 +86,86 @@ RSpec.describe IsoDoc do
     INPUT
 
     presxml = <<~OUTPUT
-        <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
-          <preface>
-            <foreword obligation="informative" displayorder="1">
-              <title>Foreword</title>
-              <p id="A">This is a preamble</p>
-            </foreword>
-            <introduction id="B" obligation="informative" displayorder="2">
-              <title depth="1">0<tab/>Introduction</title>
-              <clause id="C" inline-header="false" obligation="informative">
-                <title depth="2">0.1<tab/>Introduction Subsection</title>
-              </clause>
-              <p>This is patent boilerplate</p>
-            </introduction>
-          </preface>
-          <sections>
-            <clause id="D" obligation="normative" type="scope" displayorder="3">
-              <title depth="1">1<tab/>Scope</title>
-              <p id="E">Text</p>
+      <iso-standard xmlns="http://riboseinc.com/isoxml" type="presentation">
+        <preface>
+          <foreword obligation="informative" displayorder="1">
+            <title>Foreword</title>
+            <p id="A">This is a preamble</p>
+          </foreword>
+          <introduction id="B" obligation="informative" displayorder="2">
+            <title depth="1">0<tab/>Introduction</title>
+            <clause id="C" inline-header="false" obligation="informative">
+              <title depth="2">0.1<tab/>Introduction Subsection</title>
             </clause>
-            <clause id="H" obligation="normative" displayorder="5">
-              <title depth="1">3<tab/>Terms, Definitions, Symbols and Abbreviated Terms</title>
-              <terms id="I" obligation="normative">
-                <title depth="2">3.1<tab/>Normal Terms</title>
-                <term id="J"><name>3.1.1</name>
-                  <preferred>Term2</preferred>
-                </term>
-              </terms>
-              <definitions id="K" inline-header="true"><title>3.2</title>
-                <dl>
-                  <dt>Symbol</dt>
-                  <dd>Definition</dd>
-                </dl>
-              </definitions>
-            </clause>
-            <definitions id="L" displayorder="6"><title>4</title>
+            <p>This is patent boilerplate</p>
+          </introduction>
+        </preface>
+        <sections>
+          <clause id="D" obligation="normative" type="scope" displayorder="3">
+            <title depth="1">1<tab/>Scope</title>
+            <p id="E">Text</p>
+          </clause>
+          <clause id="H" obligation="normative" displayorder="5">
+            <title depth="1">3<tab/>Terms, Definitions, Symbols and Abbreviated Terms</title>
+            <terms id="I" obligation="normative">
+              <title depth="2">3.1<tab/>Normal Terms</title>
+              <term id="J"><name>3.1.1</name>
+                <preferred>Term2</preferred>
+              </term>
+            </terms>
+            <definitions id="K" inline-header="true"><title>3.2</title>
               <dl>
                 <dt>Symbol</dt>
                 <dd>Definition</dd>
               </dl>
             </definitions>
-            <clause id="M" inline-header="false" obligation="normative" displayorder="7">
-              <title depth="1">5<tab/>Clause 4</title>
-              <clause id="N" inline-header="false" obligation="normative">
-                <title depth="2">5.1<tab/>Introduction</title>
-              </clause>
-              <clause id="O" inline-header="false" obligation="normative">
-                <title depth="2">5.2<tab/>Clause 4.2</title>
-              </clause>
+          </clause>
+          <definitions id="L" displayorder="6"><title>4</title>
+            <dl>
+              <dt>Symbol</dt>
+              <dd>Definition</dd>
+            </dl>
+          </definitions>
+          <clause id="M" inline-header="false" obligation="normative" displayorder="7">
+            <title depth="1">5<tab/>Clause 4</title>
+            <clause id="N" inline-header="false" obligation="normative">
+              <title depth="2">5.1<tab/>Introduction</title>
             </clause>
-          </sections>
-          <annex id="P" inline-header="false" obligation="normative" displayorder="8">
-            <title><strong>Annex A</strong><br/>(normative)<br/><br/><strong>Annex</strong></title>
-            <clause id="Q" inline-header="false" obligation="normative">
-              <title depth="2">A.1<tab/>Annex A.1</title>
-              <clause id="Q1" inline-header="false" obligation="normative">
-                <title depth="3">A.1.1<tab/>Annex A.1a</title>
-              </clause>
+            <clause id="O" inline-header="false" obligation="normative">
+              <title depth="2">5.2<tab/>Clause 4.2</title>
             </clause>
-            <appendix id="Q2" inline-header="false" obligation="normative">
-              <title depth="2">Appendix 1<tab/>An Appendix</title>
-              <clause id="Q2a" inline-header="false" obligation="normative">
-                <title depth="3">Appendix 1.1<tab/>Appendix subclause</title>
-              </clause>
-            </appendix>
-            <references id="Q3" normative="false">
-              <title depth="2">A.2<tab/>Annex Bibliography</title>
+          </clause>
+        </sections>
+        <annex id="P" inline-header="false" obligation="normative" displayorder="8">
+          <title><strong>Annex A</strong><br/>(normative)<br/><br/><strong>Annex</strong></title>
+          <clause id="Q" inline-header="false" obligation="normative">
+            <title depth="2">A.1<tab/>Annex A.1</title>
+            <clause id="Q1" inline-header="false" obligation="normative">
+              <title depth="3">A.1.1<tab/>Annex A.1a</title>
+            </clause>
+          </clause>
+          <appendix id="Q2" inline-header="false" obligation="normative">
+            <title depth="2">Appendix 1<tab/>An Appendix</title>
+            <clause id="Q2a" inline-header="false" obligation="normative">
+              <title depth="3">Appendix 1.1<tab/>Appendix subclause</title>
+            </clause>
+          </appendix>
+          <references id="Q3" normative="false">
+            <title depth="2">A.2<tab/>Annex Bibliography</title>
+          </references>
+        </annex>
+        <bibliography>
+          <references id="R" normative="true" obligation="informative" displayorder="4">
+            <title depth="1">2<tab/>Normative References</title>
+          </references>
+          <clause id="S" obligation="informative" displayorder="9">
+            <title depth="1">Bibliography</title>
+            <references id="T" normative="false" obligation="informative">
+              <title depth="2">Bibliography Subsection</title>
             </references>
-          </annex>
-          <bibliography>
-            <references id="R" normative="true" obligation="informative" displayorder="4">
-              <title depth="1">2<tab/>Normative References</title>
-            </references>
-            <clause id="S" obligation="informative" displayorder="9">
-              <title depth="1">Bibliography</title>
-              <references id="T" normative="false" obligation="informative">
-                <title depth="2">Bibliography Subsection</title>
-              </references>
-            </clause>
-          </bibliography>
-        </iso-standard>
+          </clause>
+        </bibliography>
+      </iso-standard>
     OUTPUT
 
     html = <<~OUTPUT
@@ -522,6 +522,129 @@ RSpec.describe IsoDoc do
     OUTPUT
     expect(xmlpp(IsoDoc::Iso::HtmlConvert.new({})
       .convert("test", input, true))).to be_equivalent_to xmlpp(output)
+  end
+
+  it "processes multiple terms & definitions sections" do
+    input = <<~INPUT
+      #{BLANK_HDR.sub(%r{<doctype>article</doctype>}, '<doctype>article</doctype><subdoctype>vocabulary</subdoctype>')}
+               <sections>
+           <terms id='A' obligation='normative'>
+             <title>Terms and definitions</title>
+             <p id='A1'>No terms and definitions are listed in this document.</p>
+           </terms>
+           <clause id='B' inline-header='false' obligation='normative'>
+             <title>Clause</title>
+           </clause>
+           <terms id='C' obligation='normative'>
+             <title>More terms</title>
+           </terms>
+         </sections>
+       </iso-standard>
+    INPUT
+    presxml = <<~OUTPUT
+    <iso-standard xmlns='https://www.metanorma.org/ns/iso' type='presentation' version='1.8.6'>
+         <bibdata type='standard'>
+           <contributor>
+             <role type='author'/>
+             <organization>
+               <name>International Organization for Standardization</name>
+               <abbreviation>ISO</abbreviation>
+             </organization>
+           </contributor>
+           <contributor>
+             <role type='publisher'/>
+             <organization>
+               <name>International Organization for Standardization</name>
+               <abbreviation>ISO</abbreviation>
+             </organization>
+           </contributor>
+           <language current='true'>en</language>
+           <script current='true'>Latn</script>
+           <status>
+             <stage abbreviation='IS' language=''>60</stage>
+             <substage language=''>60</substage>
+           </status>
+           <copyright>
+             <from>2021</from>
+             <owner>
+               <organization>
+                 <name>International Organization for Standardization</name>
+                 <abbreviation>ISO</abbreviation>
+               </organization>
+             </owner>
+           </copyright>
+           <ext>
+             <doctype language=''>article</doctype>
+             <subdoctype>vocabulary</subdoctype>
+             <editorialgroup>
+               <technical-committee/>
+               <subcommittee/>
+               <workgroup/>
+             </editorialgroup>
+             <stagename>International standard</stagename>
+           </ext>
+         </bibdata>
+         <sections>
+           <terms id='A' obligation='normative' displayorder='1'>
+             <title depth='1'>
+               1
+               <tab/>
+               Terms and definitions
+             </title>
+             <p id='A1'>No terms and definitions are listed in this document.</p>
+           </terms>
+           <clause id='B' inline-header='false' obligation='normative' displayorder='2'>
+             <title depth='1'>
+               2
+               <tab/>
+               Clause
+             </title>
+           </clause>
+           <terms id='C' obligation='normative' displayorder='3'>
+             <title depth='1'>
+               3
+               <tab/>
+               More terms
+             </title>
+           </terms>
+         </sections>
+       </iso-standard>
+    OUTPUT
+    output = <<~OUTPUT
+    <html lang='en'>
+  <head/>
+  <body lang='en'>
+    <div class='title-section'>
+      <p>&#160;</p>
+    </div>
+    <br/>
+    <div class='prefatory-section'>
+      <p>&#160;</p>
+    </div>
+    <br/>
+    <div class='main-section'>
+      <p class='zzSTDTitle1'/>
+      <div id='A'>
+        <h1> 1 &#160; Terms and definitions </h1>
+        <p id='A1'>No terms and definitions are listed in this document.</p>
+      </div>
+      <div id='B'>
+        <h1> 2 &#160; Clause </h1>
+      </div>
+      <div id='C'>
+        <h1> 3 &#160; More terms </h1>
+      </div>
+    </div>
+  </body>
+</html>
+    OUTPUT
+    expect(xmlpp(IsoDoc::Iso::PresentationXMLConvert.new({})
+      .convert("test", input, true)
+      .gsub(%r{<localized-strings>.*</localized-strings>}m, "")
+      .gsub(%r{<boilerplate>.*</boilerplate>}m, "")))
+      .to be_equivalent_to xmlpp(presxml)
+    expect(xmlpp(IsoDoc::Iso::HtmlConvert.new({})
+      .convert("test", presxml, true))).to be_equivalent_to xmlpp(output)
   end
 
   it "processes inline section headers" do

@@ -87,7 +87,7 @@ RSpec.describe IsoDoc do
             </foreword>
           </preface>
           <sections>
-            <clause id="scope" displayorder="3">
+            <clause id="scope" displayorder="2">
               <title depth="1">Scope</title>
               <note id="N">
                 <name>NOTE</name>
@@ -99,7 +99,7 @@ RSpec.describe IsoDoc do
                 <xref target="N">Note</xref>
               </p>
             </clause>
-            <terms id="terms" displayorder="2"/>
+            <terms id="terms" displayorder="3"/>
             <clause id="widgets" displayorder="4">
               <title depth="1">Widgets</title>
               <clause id="widgets1" inline-header="true">

@@ -112,14 +112,58 @@ module IsoDoc
         end
       end
 
+      def concept(docxml)
+        docxml.xpath(ns("//terms//concept")).each_with_object({}) do |f, m|
+          concept_term(f, m)
+        end
+        docxml.xpath(ns("//concept")).each do |node|
+          concept_render(node, node["ital"] || "false", node["ref"] || "false")
+        end
+      end
+
+      def concept_term(node, seen)
+        term = node&.at(ns("./refterm"))&.to_xml
+        if term && seen[term]
+          concept_render(node, node["ital"] || "false", node["ref"] || "false")
+        else concept_render(node, node["ital"] || "true", node["ref"] || "true")
+        end
+        seen[term] = true if term
+        seen
+      end
+
+      def concept1_ref(node, ref)
+        if r = node.at(ns("./xref | ./eref | ./termref"))
+          return r.remove if ref == "false"
+
+          r.name == "termref" and
+            r.replace(@i18n.term_defined_in.sub(/%/, r.to_xml)) or
+            r.replace("(#{r.to_xml})")
+        end
+      end
+
       def concept1(node)
-        node&.at(ns("./refterm"))&.remove
-        node&.at(ns("./renderterm"))&.name = "em"
-        r = node.at(ns("./xref | ./eref | ./termref"))
-        r.name == "termref" and
-          r.replace(@i18n.term_defined_in.sub(/%/, r.to_xml)) or
-          r.replace("(#{r.to_xml})")
-        node.replace(node.children)
+        node.replace(node&.at(ns("./renderterm"))&.children ||
+                     node&.at(ns("./refterm"))&.children ||
+                     node.children)
+      end
+
+      # we're assuming terms and clauses in the right place for display,
+      # to cope with multiple terms sections
+
+      def display_order(docxml)
+        i = 0
+        i = display_order_xpath(docxml, "//preface/*", i)
+        i = display_order_at(docxml, "//clause[@type = 'scope']", i)
+        i = display_order_at(docxml, @xrefs.klass.norm_ref_xpath, i)
+        # i = display_order_at(docxml, "//sections/terms | "\
+        # "//sections/clause[descendant::terms]", i)
+        # i = display_order_at(docxml, "//sections/definitions", i)
+        # i = display_order_xpath(docxml, @xrefs.klass.middle_clause(docxml), i)
+        i = display_order_xpath(docxml, "//sections/clause[not(@type = 'scope')] | "\
+                                "//sections/terms | //sections/definitions", i)
+        i = display_order_xpath(docxml, "//annex", i)
+        i = display_order_xpath(docxml, @xrefs.klass.bibliography_xpath, i)
+        display_order_xpath(docxml, "//indexsect", i)
       end
 
       include Init
